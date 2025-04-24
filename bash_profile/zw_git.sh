@@ -371,19 +371,6 @@ alias bn=branch-name
 function branch-name {
     git branch --show-current
 }
-function clean-exr {
-    git clean -fdx -- exr/Assets/Ext/Artifacts exr/Assets/Platform/GlinkOS exr/Build exr/Library exr/Logs exr/Packages exr/ProjectSettings exr/*.csproj exr/*.sln
-}
-function clean-inr {
-    clean-inr-build
-    clean-inr-ext
-}
-function clean-inr-build {
-    git clean -fdx -- build
-}
-function clean-inr-ext {
-    git clean -fdx -- ext/vendor/soup/libs*
-}
 function conflicts {
     git diff --name-only --diff-filter=U --relative
 }
@@ -409,9 +396,9 @@ alias dw=diff-words
 function diff-words {
     ref-cmd git diff --color-words='\w+|\\.|[^[:space:]]' "$@"
 }
-alias gf=globus-fetch
-function globus-fetch {
-    git fetch --all -fPpt && git fetch origin -u main:main vnv/gmed_5/gmed_5.0:vnv/gmed_5/gmed_5.0 vnv/gmed_4/gmed_4.4:vnv/gmed_4/gmed_4.4
+alias gf=gentuity-fetch
+function gentuity-fetch {
+    git fetch --all -fPpt && git fetch origin -u master:master spryte:spryte
 }
 alias lf=lfs-fix
 function lfs-fix {

@@ -365,7 +365,7 @@ function branch-grep {
 }
 alias bl=branch-list
 function branch-list {
-    git for-each-ref --format='%(if)%(HEAD)%(then)*%(else)%(if)%(worktreepath)%(then)+%(else) %(end)%(end) %(color:magenta)%(align:15)%(authordate:relative)%(end) %(color:yellow)%(objectname:short=7) (%(if)%(HEAD)%(then)%(color:green)%(else)%(if)%(worktreepath)%(then)%(color:cyan)%(else)%(color:brightblue)%(end)%(end)%(refname:short)%(color:yellow)) %(color:dim white)%(contents:subject)' --sort='-authordate' refs/heads
+    git for-each-ref --format='%(if)%(HEAD)%(then)*%(else)%(if)%(worktreepath)%(then)+%(else) %(end)%(end) %(color:magenta)%(align:15)%(committerdate:relative)%(end) %(color:yellow)%(objectname:short=7) (%(if)%(HEAD)%(then)%(color:green)%(else)%(if)%(worktreepath)%(then)%(color:cyan)%(else)%(color:brightblue)%(end)%(end)%(refname:short)%(color:yellow)) %(color:dim white)%(contents:subject)' --sort='committerdate' refs/heads
 }
 alias bn=branch-name
 function branch-name {

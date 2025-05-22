@@ -1,0 +1,3 @@
+[submodule "git-rstash"]
+	path = git-rstash
+	url = https://github.com/allenyllee/git-rstash.git

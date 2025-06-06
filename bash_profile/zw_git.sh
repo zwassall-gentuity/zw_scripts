@@ -398,7 +398,7 @@ function diff-words {
 }
 alias gf=gentuity-fetch
 function gentuity-fetch {
-    git fetch --all -fPpt && git fetch origin -u master:master spryte:spryte
+    git fetch --all -fPpt && git fetch origin -u master:master release/v25.5:release/v25.5 spryte:spryte
 }
 alias lf=lfs-fix
 function lfs-fix {

@@ -324,6 +324,9 @@ function push {
 function rebase {
     ref-cmd git rebase "$@"
 }
+function reflog {
+    ref-cmd git reflog "$@"
+}
 function remote {
     git remote "$@"
 }

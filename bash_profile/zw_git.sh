@@ -441,6 +441,45 @@ alias rr=repo-root
 function repo-root {
     git rev-parse --show-toplevel
 }
+alias rx=rebase-x
+function rebase-x {
+    if [ -n "$(git status --untracked-files=no --porcelain)" ]; then
+        git rebase
+        return
+    fi
+    head=$(git rev-parse HEAD)
+    if [[ $1 == --onto ]]; then
+        base=$(ref-grep $2)
+        base_old=$(ref-grep $3)
+        head_old=$(ref-grep ${4:-$head})
+    else
+        base=HEAD
+        base_old=$(ref-grep $1)
+        head_old=$(ref-grep ${2:-$head})
+    fi
+    git rev-list --format='%h %s' -n1 $base > /dev/null || return
+    log=$(git log --format='%h %s' --reverse $head_old ^$base_old) || return
+    echo "$log"
+    while true; do
+        read -p 'Continue (y/n)? ' choice
+        case "$choice" in
+            y|Y ) break;;
+            n|N ) return;;
+            * ) :;;
+        esac
+    done
+    commits=$(git rev-list --reverse $head_old ^$base_old)
+    git reset --keep $base || return
+    color_off='\033[0m'
+    yellow='\033[0;33m'
+    for commit in $commits; do
+        git cherry-pick --allow-empty --empty=drop -x $commit || {
+            echo -e "${yellow}hint: After resolving the cherry-pick, to continue, run\nhint: \"rebase-x $commit $head_old\"."
+            echo -e "${yellow}hint: To abort and get back to the state before "rebase-x", run\nhint: \"git reset --hard $head\"."
+            return
+        }
+    done
+}
 function short {
     ref-cmd git rev-parse --short $([ -n "$*" ] && echo "$@" || echo "HEAD")
 }
